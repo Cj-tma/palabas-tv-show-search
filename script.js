@@ -92,6 +92,7 @@ function stripTags(html) {
   return new DOMParser().parseFromString(html, "text/html").body.textContent;
 }
 
+// This function fetches data from a URL and handles request errors.
 async function getJSON(url) {
   let response;
 
@@ -134,6 +135,7 @@ modeBadge.classList.toggle("live", !USE_SAMPLE_DATA);
 // STEP 2 — Search and show the results
 // TODO: renderResults(items), searchShows(query), and a submit listener on the form
 
+// This function displays the show's information, seasons, and cast members in the pop-up.
 function renderDetails(show, cast, seasons) {
   detailsBody.replaceChildren();
 
@@ -209,6 +211,7 @@ function renderDetails(show, cast, seasons) {
   );
 }
 
+// This listener detects clicks on show cards and opens their details.
 results.addEventListener("click", (event) => {
   const card = event.target.closest(".card");
 
@@ -217,6 +220,7 @@ results.addEventListener("click", (event) => {
   showDetails(card.dataset.id);
 });
 
+// This function displays the searched TV shows as cards on the page.
 function renderResults(items) {
   results.innerHTML = "";
   currentShows = items;
@@ -259,6 +263,7 @@ function renderResults(items) {
   setStatus(`${items.length} show(s) found.`, "info");
 }
 
+// This function sorts the current search results from highest to lowest rating.
 function sortByRating() {
   const sortedShows = [...currentShows].sort((a, b) => {
     const ratingA = a.show.rating?.average ?? -1;
@@ -270,8 +275,10 @@ function sortByRating() {
   renderResults(sortedShows);
 }
 
+// This listener runs the sorting function when the button is clicked.
 sortBtn.addEventListener("click", sortByRating);
 
+// This function searches for TV shows and displays the results or error messages.
 async function searchShows(query) {
   setStatus(`⏳ Searching for ${query}...`, "loading");
 
@@ -298,6 +305,7 @@ async function searchShows(query) {
   }
 }
 
+// This function fetches the show details, cast, and seasons at the same time.
 async function showDetails(id) {
   detailsBody.replaceChildren(
     el("p", "status loading", "Loading details…")
@@ -327,6 +335,7 @@ async function showDetails(id) {
   }
 }
 
+// This function displays the show's information, seasons, and cast members in the pop-up.
 function renderDetails(show) {
   detailsBody.replaceChildren();
 
@@ -383,6 +392,7 @@ function renderDetails(show) {
   );
 }
 
+// This listener handles the search form submission without reloading the page.
 form.addEventListener("submit", function (event) {
   event.preventDefault();
 
